@@ -17,3 +17,9 @@ def test_validate_url():
 def test_get_datasets():
     datasets = cb.get_datasets('http://beta.ckan.org')
     assert type(datasets) == list
+    assert 'annual-survey-of-manufactures-asm' in datasets
+
+
+def test_count_datasets():
+    count = cb.count_datasets('http://beta.ckan.org')
+    assert count == 15

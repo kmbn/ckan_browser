@@ -57,3 +57,14 @@ def get_datasets(site_url):
     data = fetch(site_url + '/api/3/action/package_list')
     datasets = data['result']
     return datasets
+
+
+def count_datasets(site_url):
+    """
+    Takes the URL of the site (i.e., 'http://beta.ckan.org') and returns
+    an integer representing the number of available datasets.
+
+    """
+    datasets = get_datasets(site_url)
+    count = len(datasets)
+    return count
