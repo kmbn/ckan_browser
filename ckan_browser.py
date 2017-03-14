@@ -68,3 +68,15 @@ def count_datasets(site_url):
     datasets = get_datasets(site_url)
     count = len(datasets)
     return count
+
+
+def get_dataset(site_url, name):
+    """
+    Takes the URL of the site (i.e., 'http://beta.ckan.org') and the name of
+    the dataset and returns a dict containing a given dataset.
+
+    """
+    site_url = validate_url(site_url) #
+    data = fetch(site_url + '/api/3/action/package_show?id=' + name)
+    dataset = data['result']
+    return dataset

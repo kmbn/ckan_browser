@@ -23,3 +23,10 @@ def test_get_datasets():
 def test_count_datasets():
     count = cb.count_datasets('http://beta.ckan.org')
     assert count == 15
+
+
+def test_get_dataset():
+    dataset = cb.get_dataset('http://beta.ckan.org', \
+        'annual-survey-of-manufactures-asm')
+    assert type(dataset) == dict
+    assert dataset['title'] == "Annual survey of manufactures (ASM),"
