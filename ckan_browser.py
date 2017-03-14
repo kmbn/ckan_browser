@@ -1,3 +1,8 @@
+"""
+A module for retrieving basic data from the CKAN API (version 3).
+
+"""
+
 import requests
 
 
