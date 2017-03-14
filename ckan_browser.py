@@ -32,3 +32,16 @@ def fetch(url):
                 Please check the URL and try again.')
 
     return data
+
+
+def validate_url(url):
+    """
+    Check and if possible clean up the URL entered by the user.
+    Currently just removes a trailing / if present when the user enters
+    the URL of the website so that the concatenated address is OK,
+    but could be expanded.
+
+    """
+    if url[-1] == '/':
+        url = url[:-1]
+    return url
