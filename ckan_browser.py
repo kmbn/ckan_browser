@@ -12,24 +12,28 @@ def fetch(url):
 
     # Make sure the request succeeded and the data loads.
     if r.status_code != 200:
-        return print('A %d error occured while fetching the data. \
+        print('A %d error occured while fetching the data. \
             Please check the URL and try again.' % (r.status_code))
+        return None
     try:
         data = r.json()
     except JSONDecodeError:
-        return print('An error occured while decoding the data. \
+        print('An error occured while decoding the data. \
             Please check the URL and try again.')
+        return None
     if data['success'] != True:
         try:
             error = data['error']
         except KeyError:
             error = None
         if error:
-            return print('A %d error occured while fetching the data. \
+            print('A %d error occured while fetching the data. \
                 Please check the URL and try again.' % (error))
+            return None
         else:
-            return print('An error occured while fetching the data. \
+            print('An error occured while fetching the data. \
                 Please check the URL and try again.')
+            return None
 
     return data
 
@@ -44,6 +48,8 @@ def validate_url(url):
     """
     if url[-1] == '/':
         url = url[:-1]
+    if url[:7] != 'http://':
+        url = 'http://' + url
     return url
 
 
@@ -55,6 +61,9 @@ def get_datasets(site_url):
     """
     site_url = validate_url(site_url)
     data = fetch(site_url + '/api/3/action/package_list')
+    if not data:
+        print('Could not get datasets.')
+        return None
     datasets = data['result']
     return datasets
 
@@ -76,8 +85,11 @@ def get_dataset(site_url, name):
     the dataset and returns a dict containing a given dataset.
 
     """
-    site_url = validate_url(site_url) #
+    site_url = validate_url(site_url)
     data = fetch(site_url + '/api/3/action/package_show?id=' + name)
+    if not data:
+        print('Could not get dataset.')
+        return None
     dataset = data['result']
     return dataset
 
