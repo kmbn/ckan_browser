@@ -30,3 +30,11 @@ def test_get_dataset():
         'annual-survey-of-manufactures-asm')
     assert type(dataset) == dict
     assert dataset['title'] == "Annual survey of manufactures (ASM),"
+
+
+def test_count_resources():
+    count = cb.count_resources('http://beta.ckan.org')
+    assert type(count) == dict
+    assert count['internal'] == 9
+    assert count['external'] == 8
+    assert count['total'] == 17

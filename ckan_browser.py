@@ -80,3 +80,36 @@ def get_dataset(site_url, name):
     data = fetch(site_url + '/api/3/action/package_show?id=' + name)
     dataset = data['result']
     return dataset
+
+
+def count_resources(site_url):
+    """
+    Takes the URL of the site (i.e., 'http://beta.ckan.org') and returns
+    a dict with the number of internal/uploaded resources,
+    the number of external/linked resources,
+    and the total number of resources.
+
+    """
+    site_url = validate_url(site_url)
+
+    # NOTE:
+    # Using the 'package_list_with_resources' action would seem to be
+    # simpler and faster, but it does not return all of the datasets
+    # (currently, it returns 10 rather than 15 datasets), so we're going to
+    # take a two-step approach here.
+
+    # Get a list of all the datasets.
+    datasets = get_datasets(site_url)
+    internal = 0
+    external = 0
+    # Fetch each dataset and count the number int/ext resources in each.
+    for i in datasets:
+        dataset = get_dataset(site_url, i)
+        for resource in dataset['resources']:
+            if resource['url_type'] == 'upload':
+                internal += 1
+            else:
+                external += 1
+    count = {'internal': internal, 'external': external, \
+        'total': internal + external}
+    return count
