@@ -12,3 +12,8 @@ def test_fetch():
 def test_validate_url():
     assert cb.validate_url('http://beta.ckan.org/') == 'http://beta.ckan.org'
     assert cb.validate_url('http://beta.ckan.org') == 'http://beta.ckan.org'
+
+
+def test_get_datasets():
+    datasets = cb.get_datasets('http://beta.ckan.org')
+    assert type(datasets) == list

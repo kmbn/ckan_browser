@@ -45,3 +45,15 @@ def validate_url(url):
     if url[-1] == '/':
         url = url[:-1]
     return url
+
+
+def get_datasets(site_url):
+    """
+    Takes the URL of the site (i.e., 'http://beta.ckan.org')
+    and returns a list containg the names of the available datasets.
+
+    """
+    site_url = validate_url(site_url)
+    data = fetch(site_url + '/api/3/action/package_list')
+    datasets = data['result']
+    return datasets
