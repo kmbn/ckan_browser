@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/kmbn/ckan_browser.svg?branch=master)](https://travis-ci.org/kmbn/ckan_browser)
+
 # CKAN Browser
 A module for retrieving basic data from the CKAN API (version 3), including the number of datasets available, the individual datasets themselves, and the number of internal and external resources.
 
